@@ -1,4 +1,5 @@
-"use client";
+'use client';  // Ensure it's a client-side component
+
 import "jsvectormap/dist/jsvectormap.css";
 import "flatpickr/dist/flatpickr.min.css";
 import "@/css/style.css";
@@ -20,21 +21,31 @@ export default function RootLayout({
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
+
+    // Dynamically load the RDKit script
+    const script = document.createElement('script');
+    script.src = "https://unpkg.com/@rdkit/rdkit/dist/RDKit_minimal.js";
+    script.async = true;
+    document.head.appendChild(script);
+
+    // Cleanup script on component unmount
+    return () => {
+      document.head.removeChild(script);
+    };
   }, []);
 
   const client = new Ably.Realtime({
     key: "jkgk1g.MRf7Ng:FbZCsh1NmuGUhs-1-edrz1NANJdpTnZdXC6AD1B-YWU",
   });
+
   return (
     <html lang="en">
-      {/* <script src="https://unpkg.com/@rdkit/rdkit/dist/RDKit_minimal.js"></script> */}
-      <script src="https://unpkg.com/@rdkit/rdkit/dist/RDKit_minimal.js"></script>
       <body suppressHydrationWarning={true}>
         <SessionProvider>
           <UserProvider>
             <AblyProvider client={client}>
               <ChannelProvider channelName="chat-demo1">
-                <div className="font-poppins dark:bg-boxdark-2 dark:text-bodydark ">
+                <div className="font-poppins dark:bg-boxdark-2 dark:text-bodydark">
                   {loading ? <Loader /> : children}
                 </div>
               </ChannelProvider>

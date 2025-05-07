@@ -41,6 +41,11 @@ const menuGroups = [
         route: "/model",
       },
       {
+        icon: <Network size={25} />,
+        label: "Model 2.0",
+        route: "/alpha",
+      },
+      {
         icon: <Microscope size={25} />,
         label: "Research",
         route: "/research",

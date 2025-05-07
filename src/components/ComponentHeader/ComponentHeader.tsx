@@ -1,5 +1,5 @@
 "use client";
-import Modal from "@/app/ui/modals/page";
+import Modal from "@/app/ui/modals/Modal";
 import React from "react";
 
 interface ComponentHeaderProps {
